@@ -3,10 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>天気API</title>
 </head>
+<script type="text/javascript" src="index.js"></script>
 
-<body>
+<body onLoad="areaWhether()">
+
+    <select id="city" onchange="areaWhether()">
+        <option id="selection" value="London" selected>ロンドン</option>
+        <option id="selection" value="Tokyo">東京</option>
+        <option id="selection" value="Paris">パリ</option>
+        <option id="selection" value="New York">ニューヨーク</option>
+        <option id="selection" value="Indonesia">インドネシア</option>
+    </select>
+    <!-- javascriptで得た結果を表示する場所 -->
+    <p>
+    <div id="whether"></div>
+    <div>気温 <span id="temperature"></span>℃</div>
+    <div>湿度 <span id="humidity"></span>%</div>
+
+    </p>
+
 </body>
 
 </html>
