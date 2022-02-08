@@ -7,9 +7,9 @@
 </head>
 <script type="text/javascript" src="index.js"></script>
 
-<body onLoad="areaWhether()">
+<body onLoad="currentWeather()">
 
-    <select id="city" onchange="areaWhether()">
+    <select id="city" onchange="currentWeather()">
         <option id="selection" value="London" selected>ロンドン</option>
         <option id="selection" value="Tokyo">東京</option>
         <option id="selection" value="Paris">パリ</option>
@@ -18,10 +18,9 @@
     </select>
     <!-- javascriptで得た結果を表示する場所 -->
     <p>
-    <div id="whether"></div>
+    <div id="weather"></div>
     <div>気温 <span id="temperature"></span>℃</div>
     <div>湿度 <span id="humidity"></span>%</div>
-
     </p>
 
 </body>
