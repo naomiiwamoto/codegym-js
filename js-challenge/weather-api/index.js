@@ -22,8 +22,3 @@ const currentWeather = () => {
         }
     }
 }
-//プルダウンの情報を受け取る
-const city = document.getElementById("city").value;
-if (['London', 'Tokyo', 'Paris', 'New York', 'Indonesia'].includes(city)) {
-    currentWeather();
-}
