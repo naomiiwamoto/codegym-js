@@ -4,7 +4,7 @@ if (['London', 'Tokyo', 'Paris', 'New York', 'Indonesia'].includes(city)) {
     currentWeather();
 }
 //Ajaxで情報を取得
-function currentWeather() {
+const currentWeather = () => {
 
     const city = document.getElementById("city").value;
     const api_key = "4b5774e9f3d2a07b84f0f2f88e486224";
