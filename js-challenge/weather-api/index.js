@@ -1,8 +1,3 @@
-//プルダウンの情報を受け取る
-const city = document.getElementById("city").value;
-if (['London', 'Tokyo', 'Paris', 'New York', 'Indonesia'].includes(city)) {
-    currentWeather();
-}
 //Ajaxで情報を取得
 const currentWeather = () => {
 
@@ -25,5 +20,10 @@ const currentWeather = () => {
             document.getElementById("humidity").innerText = humidity;
             document.getElementById("temperature").innerText = temperature;
         }
-    };
+    }
+}
+//プルダウンの情報を受け取る
+const city = document.getElementById("city").value;
+if (['London', 'Tokyo', 'Paris', 'New York', 'Indonesia'].includes(city)) {
+    currentWeather();
 }
