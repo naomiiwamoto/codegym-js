@@ -70,10 +70,13 @@ const clicklogoutButton = () => {
         return response.json();
     }).then(json => {
         console.log(json);
+        const message = json.message;
+        document.getElementById("logoutComment").innerText = message;
     }).catch(response => {
         console.log(response);
     });
-}; buttonlogoutSubmit.addEventListener('click', clicklogoutButton);
+};
+buttonlogoutSubmit.addEventListener('click', clicklogoutButton);
 
 
 //usersIdGet
@@ -100,21 +103,81 @@ buttonUsersIdGetSubmit.addEventListener('click', clickUsersIdGetSubmit);
 //usersGet
 const buttonUsersGetSubmit = document.getElementById("usersGetSubmit");
 const clickUsersGetSubmit = () => {
-    const token = localStorage.getItem('token')
-    fetch(host + '/users', {
-        method: "GET",
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
 
-}; buttonUsersGetSubmit.addEventListener('click', clickUsersGetSubmit);
+    const GetPageNumber = document.getElementById("GetPageNumber").value;
+    const GetNumberOfAcquisitions = document.getElementById("GetNumberOfAcquisitions").value;
+    const GetKeyword = document.getElementById("GetKeyword").value;
+    const data = {
+        per_page: GetNumberOfAcquisitions,
+        page: GetPageNumber
+    }
+    const keyword = new URLSearchParams(data);
+    if (GetKeyword === '' || GetKeyword === null) { //キーワードのみ記入の場合
+
+        const token = localStorage.getItem('token')
+        fetch(host + '/users?q=' + GetKeyword, {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).catch(response => {
+            console.log(response);
+        });
+
+    } else if (GetPageNumber === null) {//ページ数の指定がある場合
+
+        const token = localStorage.getItem('token')
+        fetch(host + '/users?page=' + GetPageNumber, {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).catch(response => {
+            console.log(response);
+        });
+    } else if (GetNumberOfAcquisitions === null) {//取得件数またはキーワードの指定がある場合
+
+        const token = localStorage.getItem('token')
+        fetch(host + '/users?per_page=' + GetNumberOfAcquisitions, {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).catch(response => {
+            console.log(response);
+        });
+
+    } else {
+        const token = localStorage.getItem('token')
+
+        fetch(host + '/users?q=' + GetKeyword + '&' + keyword, {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).catch(response => {
+            console.log(response);
+        });
+
+    };
+};
+buttonUsersGetSubmit.addEventListener('click', clickUsersGetSubmit);
 
 //usersDelete(ログインユーザを削除する)
 const buttonUsersDeleteSubmit = document.getElementById("usersDeleteSubmit");
@@ -133,7 +196,8 @@ const clickUsersDeleteSubmit = () => {
         console.log(response);
     });
 
-}; buttonUsersDeleteSubmit.addEventListener('click', clickUsersDeleteSubmit);
+};
+buttonUsersDeleteSubmit.addEventListener('click', clickUsersDeleteSubmit);
 
 //usersEdit(ログインユーザを編集する)
 const buttonUsersEditSubmit = document.getElementById("usersEditSubmit");
@@ -158,4 +222,5 @@ const clickUsersEditSubmit = () => {
         console.log(response);
     });
 
-}; buttonUsersEditSubmit.addEventListener('click', clickUsersEditSubmit);
+};
+buttonUsersEditSubmit.addEventListener('click', clickUsersEditSubmit);

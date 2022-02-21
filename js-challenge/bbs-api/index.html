@@ -7,48 +7,67 @@
 </head>
 
 <body>
-  <form id="registerForm">
-    <p>register</p>
-    <input type="text" id="registerName" placeholder="name" />
-    <input type="text" id="registerBio" placeholder="bio" />
-    <input type="text" id="registerPassword" placeholder="password" />
-    <button id="registerSubmit">送信</button>
-  </form>
-  <form id="loginForm">
-    <p>login</p>
-    <input type="text" id="loginName" placeholder="name" />
-    <input type="text" id="loginPassword" placeholder="password" />
-    <button id="loginSubmit">送信</button>
-  </form>
-  <form id="logoutForm">
-    <p>logout</p>
-    <button id="logoutSubmit">送信</button>
-  </form>
-  <form id="usersIdGetForm">
-    <p>usersIdGet</p>
-    <input type="number" id="usersIdGetId" placeholder="id" />
-    <button id="usersIdGetSubmit">送信</button>
-  </form>
-  <form id="usersGetForm"></form>
-  <p>usersGet</p>
-  <button id="usersGetSubmit">送信</button>
-  </form>
-  <form id="usersEditForm"></form>
-  <p>usersEdit</p>
-  <input type="text" id="usersEditBio" placeholder="bio" />
-  <button id="usersEditSubmit">送信</button>
-  </form>
-  <form id="usersDeleteForm"></form>
-  <p>usersDelete</p>
-  <button id="usersDeleteSubmit">送信</button>
-  </form>
   <table>
     <tr>
-      <td>threadsGet</td>
-      <td><input type="number" id="threadsGetPerPage" placeholder="perPage" /></td>
-      <td><input type="number" id="threadsGetPage" placeholder="page" /></td>
-      <td><input type="text" id="threadsGetQ" placeholder="q" /></td>
-      <td><button id="threadsGetSubmit">送信</button></td>
+      <p>register</p>
+      <input type="text" id="registerName" placeholder="name" />
+      <input type="text" id="registerBio" placeholder="bio" />
+      <input type="text" id="registerPassword" placeholder="password" />
+      <button id="registerSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>login</p>
+      <input type="text" id="loginName" placeholder="name" />
+      <input type="text" id="loginPassword" placeholder="password" />
+      <button id="loginSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>logout</p>
+      <div id="logoutComment"></div>
+      <span id="temperature"></span>
+      <button id="logoutSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>usersIdGet</p>
+      <input type="number" id="usersIdGetId" placeholder="id" />
+      <button id="usersIdGetSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>usersGet</p>
+      <input type="number" id="GetPageNumber" placeholder="pageNumber" />
+      <input type="number" id="GetNumberOfAcquisitions" placeholder="numberOfAcquisitions" />
+      <input type="text" id="GetKeyword" placeholder="Keyword" />
+      <button id="usersGetSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>BioEdit</p>
+      <input type="text" id="usersEditBio" placeholder="bio" />
+      <button id="usersEditSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>usersDataDelete</p>
+      <button id="usersDeleteSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>title：</p>
+      <textarea id="threadText" rows="4" cols="40"></textarea>
+      <button id="threadSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>threadList</p>
+      <button id="threadListSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>threadGetId</p>
+      <input type="number" id="threadGetId" placeholder="id" />
+      <button id="threadGetIdSubmit">送信</button>
+    </tr>
+    <tr>
+      <p>threadIdGet</p>
+      <input type="number" id="threadsGetPerPage" placeholder="perPage" />
+      <input type="number" id="threadsGetPage" placeholder="page" />
+      <input type="text" id="threadsGetQ" placeholder="q" />
+      <button id="threadsGetSubmit">送信</button>
     </tr>
     <tr>
       <td>threadsPost</td>
