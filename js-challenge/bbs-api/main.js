@@ -105,77 +105,46 @@ const buttonUsersGetSubmit = document.getElementById("usersGetSubmit");
 const clickUsersGetSubmit = () => {
 
     const GetPageNumber = document.getElementById("GetPageNumber").value;
-    const GetNumberOfAcquisitions = document.getElementById("GetNumberOfAcquisitions").value;
+    const GetperPage = document.getElementById("GetperPage").value;
     const GetKeyword = document.getElementById("GetKeyword").value;
-    const data = {
-        per_page: GetNumberOfAcquisitions,
-        page: GetPageNumber
+
+    let data = {};
+
+    //キーワードは入っている場合にリクエストパラメータに入れる
+    if (GetKeyword !== '') { //キーワード記入
+        data.q = GetKeyword;
     }
-    const keyword = new URLSearchParams(data);
-    if (GetKeyword === '' || GetKeyword === null) { //キーワードのみ記入の場合
+    if (GetPageNumber !== '') {//ページ番号
+        data.page = GetPageNumber;
+    }
+    if (GetperPage !== '') {//ページ取得件数
+        data.per_page = GetperPage;
+    }
+    let url = host + '/users?' +
+        Object.entries(data)
+            .map((e) => {
+                let key = e[0];
+                let value = encodeURI(e[1]);
+                return `${key}=${value}`;
+            })
+            .join("&");
 
-        const token = localStorage.getItem('token')
-        fetch(host + '/users?q=' + GetKeyword, {
-            method: "GET",
-            headers: {
-                'Authorization': 'Bearer ' + token
-            },
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).catch(response => {
-            console.log(response);
-        });
+    console.log(url)
 
-    } else if (GetPageNumber === null) {//ページ数の指定がある場合
+    const token = localStorage.getItem('token')
 
-        const token = localStorage.getItem('token')
-        fetch(host + '/users?page=' + GetPageNumber, {
-            method: "GET",
-            headers: {
-                'Authorization': 'Bearer ' + token
-            },
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).catch(response => {
-            console.log(response);
-        });
-    } else if (GetNumberOfAcquisitions === null) {//取得件数またはキーワードの指定がある場合
-
-        const token = localStorage.getItem('token')
-        fetch(host + '/users?per_page=' + GetNumberOfAcquisitions, {
-            method: "GET",
-            headers: {
-                'Authorization': 'Bearer ' + token
-            },
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).catch(response => {
-            console.log(response);
-        });
-
-    } else {
-        const token = localStorage.getItem('token')
-
-        fetch(host + '/users?q=' + GetKeyword + '&' + keyword, {
-            method: "GET",
-            headers: {
-                'Authorization': 'Bearer ' + token
-            },
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).catch(response => {
-            console.log(response);
-        });
-
-    };
+    fetch(url, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
+    }).catch(response => {
+        console.log(response);
+    });
 };
 buttonUsersGetSubmit.addEventListener('click', clickUsersGetSubmit);
 
