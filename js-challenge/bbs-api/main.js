@@ -220,8 +220,30 @@ const clickThreadListSubmit = () => {
 };
 buttonthreadGetListSubmit.addEventListener('click', clickThreadListSubmit);
 
+//threadGet (スレッドを取得する)
+const buttonthreadGetIdSubmit = document.getElementById("threadGetIdSubmit");
+const clickthreadGetIdSubmit = () => {
 
-//threadGetId (自分の thread を編集する。)
+    const threadGetId = document.getElementById("threadGetId").value;
+    const token = localStorage.getItem('token')
+    fetch(host + '/threads/' + threadGetId, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
+    }).catch(response => {
+        console.log(response);
+    });
+};
+buttonthreadGetIdSubmit.addEventListener('click', clickthreadGetIdSubmit);
+
+
+//threadEditing 
 const buttonthreadEditingSubmit = document.getElementById("threadEditingSubmit");
 const clickthreadEditingSubmit = () => {
 
