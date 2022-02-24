@@ -172,7 +172,7 @@ buttonUsersEditSubmit.addEventListener('click', clickUsersEditSubmit);
 
 //threadpost
 const buttonthreadsPostSubmit = document.getElementById("threadsPostSubmit");
-const clickThreadSubmi = () => {
+const clickThreadSubmit = () => {
     const threadsPostTitle = document.getElementById("threadsPostTitle").value;
     const data = {
         "title": threadsPostTitle
@@ -192,14 +192,14 @@ const clickThreadSubmi = () => {
     }).catch(response => {
         console.log(response);
     });
-};
-buttonthreadsPostSubmit.addEventListener('click', clickThreadSubmi);
+}
+buttonthreadsPostSubmit.addEventListener('click', clickThreadSubmit);
 
 //threadList 
 const buttonthreadGetListSubmit = document.getElementById("threadGetListSubmit");
 const clickThreadListSubmit = () => {
     const params = {
-        Per_Page: document.getElementById("threadsGetPerPage").value,
+        per_page: document.getElementById("threadsGetPerPage").value,
         page: document.getElementById("threadsGetPage").value,
         q: document.getElementById("threadsGetQ").value,
     };
@@ -220,27 +220,6 @@ const clickThreadListSubmit = () => {
 };
 buttonthreadGetListSubmit.addEventListener('click', clickThreadListSubmit);
 
-//threadGet (スレッドを取得する)
-const buttonthreadGetIdSubmit = document.getElementById("threadGetIdSubmit");
-const clickthreadGetIdSubmit = () => {
-
-    const threadGetId = document.getElementById("threadGetId").value;
-    const token = localStorage.getItem('token')
-    fetch(host + '/threads/' + threadGetId, {
-        method: "GET",
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
-};
-buttonthreadGetIdSubmit.addEventListener('click', clickthreadGetIdSubmit);
 
 //threadGetId (自分の thread を編集する。)
 const buttonthreadEditingSubmit = document.getElementById("threadEditingSubmit");
@@ -268,123 +247,3 @@ const clickthreadEditingSubmit = () => {
     });
 };
 buttonthreadEditingSubmit.addEventListener('click', clickthreadEditingSubmit);
-
-//repliesPost
-const buttonrepliesPostSubmit = document.getElementById("repliesPostSubmit");
-const clickrepliesPostSubmit = () => {
-    const repliesPostText = document.getElementById("repliesPostText").value;
-    const repliesPostThreadId = document.getElementById("repliesPostThreadId").value;
-    const data = {
-        "thread_id": repliesPostThreadId,
-        "text": repliesPostText
-    };
-    const token = localStorage.getItem('token')
-    fetch(host + '/replies', {
-        method: "POST",
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
-};
-buttonrepliesPostSubmit.addEventListener('click', clickrepliesPostSubmit);
-
-//repGetidSubmit
-const buttonrepGetidSubmit = document.getElementById("repGetidSubmit");
-const clickrepGetidSubmit = () => {
-    const rep_id = document.getElementById("rep_id").value;
-    const token = localStorage.getItem('token')
-    fetch(host + '/replies/' + rep_id, {
-        method: "GET",
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
-};
-buttonrepGetidSubmit.addEventListener('click', clickrepGetidSubmit);
-
-//repliesList 
-const buttonrepliesGetSubmit = document.getElementById("repliesGetSubmit");
-const clickrepliesGetSubmit = () => {
-    const params = {
-        thread_id: document.getElementById("thread_id").value,
-        Per_Page: document.getElementById("repliesGetPerPage").value,
-        page: document.getElementById("repliesGetPage").value,
-        q: document.getElementById("repliesGetQ").value,
-    };
-    const queryParams = new URLSearchParams(params);
-    const token = localStorage.getItem('token')
-    fetch(host + '/replies?' + queryParams, {
-        method: "GET",
-        headers: {
-            'Authorization': 'Bearer ' + token,
-        },
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
-};
-buttonrepliesGetSubmit.addEventListener('click', clickrepliesGetSubmit);
-
-//repEditSubmit
-const buttonrepEditSubmit = document.getElementById("repEditSubmit");
-const clickrepEditSubmit = () => {
-    const repEditId = document.getElementById("repEditId").value;
-    const reprepEdit = document.getElementById("reprepEdit").value;
-    const data = {
-        "text": reprepEdit
-    };
-    const token = localStorage.getItem('token')
-    fetch(host + '/replies/' + repEditId, {
-        method: "PATCH",
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
-};
-buttonrepEditSubmit.addEventListener('click', clickrepEditSubmit);
-
-//repDelete
-const buttonrepDataDeleteSubmit = document.getElementById("repDataDeleteSubmit");
-const clickrepDataDeleteSubmit = () => {
-    const repId = document.getElementById("repId").value;
-    const token = localStorage.getItem('token')
-    fetch(host + '/replies/' + repId, {
-        method: "DELETE",
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
-    }).then(response => {
-        return response.json();
-    }).then(json => {
-        console.log(json);
-    }).catch(response => {
-        console.log(response);
-    });
-};
-buttonrepDataDeleteSubmit.addEventListener('click', clickrepDataDeleteSubmit);
