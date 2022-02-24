@@ -103,37 +103,15 @@ buttonUsersIdGetSubmit.addEventListener('click', clickUsersIdGetSubmit);
 //usersGet
 const buttonUsersGetSubmit = document.getElementById("usersGetSubmit");
 const clickUsersGetSubmit = () => {
+    const params = {
 
-    const GetPageNumber = document.getElementById("GetPageNumber").value;
-    const GetperPage = document.getElementById("GetperPage").value;
-    const GetKeyword = document.getElementById("GetKeyword").value;
-
-    let data = {};
-
-    //キーワードは入っている場合にリクエストパラメータに入れる
-    if (GetKeyword !== '') { //キーワード記入
-        data.q = GetKeyword;
-    }
-    if (GetPageNumber !== '') {//ページ番号
-        data.page = GetPageNumber;
-    }
-    if (GetperPage !== '') {//ページ取得件数
-        data.per_page = GetperPage;
-    }
-    let url = host + '/users?' +
-        Object.entries(data)
-            .map((e) => {
-                let key = e[0];
-                let value = encodeURI(e[1]);
-                return `${key}=${value}`;
-            })
-            .join("&");
-
-    console.log(url)
-
+        page: document.getElementById("GetPageNumber").value,
+        per_page: document.getElementById("GetperPage").value,
+        q: document.getElementById("GetKeyword").value,
+    };
+    const queryParams = new URLSearchParams(params);
     const token = localStorage.getItem('token')
-
-    fetch(url, {
+    fetch(host + '/users?' + queryParams, {
         method: "GET",
         headers: {
             'Authorization': 'Bearer ' + token
@@ -164,7 +142,6 @@ const clickUsersDeleteSubmit = () => {
     }).catch(response => {
         console.log(response);
     });
-
 };
 buttonUsersDeleteSubmit.addEventListener('click', clickUsersDeleteSubmit);
 
@@ -190,6 +167,105 @@ const clickUsersEditSubmit = () => {
     }).catch(response => {
         console.log(response);
     });
-
 };
 buttonUsersEditSubmit.addEventListener('click', clickUsersEditSubmit);
+
+//threadpost
+const buttonthreadsPostSubmit = document.getElementById("threadsPostSubmit");
+const clickThreadSubmit = () => {
+    const threadsPostTitle = document.getElementById("threadsPostTitle").value;
+    const data = {
+        "title": threadsPostTitle
+    };
+    const token = localStorage.getItem('token')
+    fetch(host + '/threads', {
+        method: "POST",
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
+    }).catch(response => {
+        console.log(response);
+    });
+}
+buttonthreadsPostSubmit.addEventListener('click', clickThreadSubmit);
+
+//threadList 
+const buttonthreadGetListSubmit = document.getElementById("threadGetListSubmit");
+const clickThreadListSubmit = () => {
+    const params = {
+        per_page: document.getElementById("threadsGetPerPage").value,
+        page: document.getElementById("threadsGetPage").value,
+        q: document.getElementById("threadsGetQ").value,
+    };
+    const queryParams = new URLSearchParams(params);
+    const token = localStorage.getItem('token')
+    fetch(host + '/threads?' + queryParams, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
+    }).catch(response => {
+        console.log(response);
+    });
+};
+buttonthreadGetListSubmit.addEventListener('click', clickThreadListSubmit);
+
+//threadGet (スレッドを取得する)
+const buttonthreadGetIdSubmit = document.getElementById("threadGetIdSubmit");
+const clickthreadGetIdSubmit = () => {
+
+    const threadGetId = document.getElementById("threadGetId").value;
+    const token = localStorage.getItem('token')
+    fetch(host + '/threads/' + threadGetId, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
+    }).catch(response => {
+        console.log(response);
+    });
+};
+buttonthreadGetIdSubmit.addEventListener('click', clickthreadGetIdSubmit);
+
+
+//threadEditing 
+const buttonthreadEditingSubmit = document.getElementById("threadEditingSubmit");
+const clickthreadEditingSubmit = () => {
+
+    const threadEditingGetId = document.getElementById("threadEditingGetId").value;
+    const titleEdit = document.getElementById("titleEdit").value;
+    const token = localStorage.getItem('token')
+    const data = {
+        "title": titleEdit
+    };
+    fetch(host + '/threads/' + threadEditingGetId, {
+        method: "PATCH",
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        console.log(json);
+    }).catch(response => {
+        console.log(response);
+    });
+};
+buttonthreadEditingSubmit.addEventListener('click', clickthreadEditingSubmit);
